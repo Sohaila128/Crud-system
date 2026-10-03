@@ -1,0 +1,219 @@
+<!doctype html>
+<html lang="en">
+  <head>
+    <meta charset="UTF-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+
+    <title>CRUD</title>
+
+    <!-- Favicon -->
+    <link rel="icon" type="image/png" href="assets/images/favicon.png" />
+
+    <!-- Bootstrap CSS -->
+    <link rel="stylesheet" href="assets/css/bootstrap.min.css" />
+
+    <!-- Font Awesome -->
+    <link rel="stylesheet" href="assets/css/all.min.css" />
+
+    <!-- Custom CSS -->
+    <link rel="stylesheet" href="assets/css/style.css" />
+    <link rel="stylesheet" href="assets/css/responsive.css" />
+  </head>
+
+  <body>
+    <nav class="navbar navbar-expand-lg navbar-bg fixed-top py-3 border-bottom">
+      <div class="container-xl">
+        <a
+          class="navbar-brand d-flex align-items-center gap-2 text-white fw-bold fs-4 border-0"
+          href="#"
+        >
+          <span
+            class="p-2 bg-primary bg-gradient rounded-3 d-inline-flex align-items-center justify-content-center logo-icon"
+          >
+            <i class="fa fa-cart-arrow-down fs-5"></i>
+          </span>
+          <span>CRUD</span>
+        </a>
+      </div>
+    </nav>
+
+    <!-- Product Form -->
+    <section class="hero-sec">
+      <div class="container-xxl py-4">
+        <div class="heading mb-5">
+          <h2 class="section-title text-primary fw-semibold">Add Product</h2>
+
+          <p class="text-white">Add a new product to your collection</p>
+        </div>
+        <div class="row gy-4 justify-content-center">
+          <!-- Product Name -->
+          <div class="col-md-8">
+            <label class="form-label mb-2 fw-semibold" for="productName"
+              >Product Name</label
+            >
+            <input
+              type="text"
+              class="form-control"
+              name="productName"
+              placeholder="e.g. MacBook Pro, Galaxy S24"
+              id="productName"
+            />
+            <span class="invalid-feedback">
+              Must contain at least 1 uppercase (A-Z) and 1 lowercase letter
+              (a-z).
+            </span>
+          </div>
+
+          <!-- Price -->
+          <div class="col-md-4">
+            <label class="form-label mb-2 fw-semibold" for="productPrice"
+              >Price</label
+            >
+            <input
+              type="number"
+              class="form-control"
+              name="productPrice"
+              placeholder="6000 - 600000"
+              id="productPrice"
+            />
+            <div class="invalid-feedback">
+              Price must be between 6,000 and 60,000.
+            </div>
+          </div>
+
+          <!-- Category -->
+          <div class="col-md-6">
+            <label class="form-label mb-2 fw-semibold" for="productCategory"
+              >Category</label
+            >
+
+            <select
+              class="form-select"
+              name="productCategory"
+              id="productCategory"
+            >
+              <option value="" selected disabled>Choose Category</option>
+
+              <option value="electronics">Electronics</option>
+              <option value="clothing">Clothing</option>
+              <option value="food">Food</option>
+              <option value="books">Books</option>
+            </select>
+
+            <div class="invalid-feedback">Please select a category.</div>
+          </div>
+
+          <!-- Product Image -->
+          <div class="col-md-6">
+            <label class="form-label mb-2 fw-semibold" for="productImage"
+              >Product Image</label
+            >
+            <input
+              type="file"
+              class="form-control"
+              name="productImage"
+              id="productImage"
+              accept="image/*"
+            />
+            <span class="invalid-feedback">
+              Please select an image with a maximum size of 2MB.
+            </span>
+            <img
+              id="imagePreview"
+              class="image-preview"
+              src=""
+              alt="Product Preview"
+            />
+          </div>
+
+          <!-- Product Description -->
+          <div class="col-12">
+            <label class="form-label mb-2 fw-semibold" for="productDescription"
+              >Product Description</label
+            >
+            <textarea
+              class="form-control"
+              name="productDescription"
+              placeholder="Enter Product Description"
+              id="productDescription"
+              rows="4"
+            ></textarea>
+
+            <div class="invalid-feedback">
+              Description must be between 4 and 250 characters.
+            </div>
+          </div>
+
+          <!-- Add Product Button -->
+          <div class="col-12 text-center">
+            <button
+              type="button"
+              class="btn btn-main py-3 px-5"
+              id="addProductBtn"
+            >
+              Add Product
+            </button>
+            <button
+              type="button"
+              class="btn btn-secondary py-3 px-5 d-none"
+              id="updateProductBtn"
+            >
+              Update Product
+            </button>
+          </div>
+        </div>
+      </div>
+    </section>
+
+    <!-- Products -->
+    <section class="products-sec py-5">
+      <div class="container-xxl">
+        <div class="heading mb-4">
+          <h2 class="section-title text-center text-primary">Our Products</h2>
+
+          <p class="text-center mb-0 text-white">
+            Manage and explore your products
+          </p>
+        </div>
+
+        <div class="row g-3 mb-5">
+          <div class="col-md-8">
+            <label for="searchInput" class="form-label mb-2 fw-semibold">
+              Search Products
+            </label>
+
+            <input
+              type="text"
+              class="form-control"
+              id="searchInput"
+              placeholder="Search by product name..."
+            />
+          </div>
+
+          <div class="col-md-4">
+            <label for="sortSelect" class="form-label mb-2 fw-semibold">
+              Sort Products
+            </label>
+
+            <select class="form-select" id="sortSelect">
+              <option value="" selected disabled>Choose sorting</option>
+              <option value="priceLH">Price: Low to High</option>
+              <option value="priceHL">Price: High to Low</option>
+              <option value="nameAZ">Name: A to Z</option>
+              <option value="nameZA">Name: Z to A</option>
+            </select>
+          </div>
+        </div>
+
+       
+        <!-- Products -->
+        <div class="row gy-4" id="productContainer"></div>
+      </div>
+    </section>
+
+    <!-- Bootstrap JS -->
+    <script src="assets/js/bootstrap.bundle.min.js"></script>
+    <!-- Custom JS -->
+    <script src="assets/js/main.js"></script>
+  </body>
+</html>
